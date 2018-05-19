@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>User log in</title>
+</head>
+
+<body>
+    <% if (errors != "") {%>
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                &times;
+            </button>
+            <%- errors%>
+        </div>
+        <% } %>
+            <div id="notice"></div>
+            <form class="form-horizontal" method="post">
+                <fieldset>
+                    <legend>用户登录</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="username">用户名</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" id="username" name="username">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password">密码</label>
+                        <div class="controls">
+                            <input type="password" class="input-xlarge" id="password" name="password">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button id="sub_btn" type="submit" class="btn btn-primary">登录</button>
+                        <a class="btn btn-default" href="/user/reg">去注册</a>
+                    </div>
+                </fieldset>
+            </form>
+            <script>
+            $(document).ready(function() {
+                $('button#sub_btn').on('click', function() {
+                    var user_name = $('#username').val();
+                    var password = $('#password').val();
+                    if (user_name == "" || password == "") {
+                        $('#notice').addClass('alert alert-danger');
+                        $('#notice').html("请输入你的用户名和密码");
+                        return false;
+                    } else {
+                        $('#notice').removeClass('alert alert-danger');
+                        $('#notice').hide();
+                        $.ajax({
+                            url: '/',
+                            type: 'post',
+                            data: {
+                                username: user_name,
+                                password: password
+                            },
+                            cache: false,
+                        });
+                    }
+                });
+            });
+            </script>
+</body>
+
+</html>

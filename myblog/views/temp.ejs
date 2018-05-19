@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Microblog</title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" href="/stylesheets/font.css">
+    <script src="/javascripts/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span>
+                </a> <a class="brand" href="/home">Microblog</a>
+                <div class="nav-collapse">
+                    <ul class="nav navbar-nav">
+                        <li id="home"><a href="/home">主页</a></li>
+                        <li id="view"><a href="/view?blog=<%= nav_success%>">浏览</a></li>
+                        <li id="write"><a href="/write">写博客</a></li>
+                    </ul>
+                    <ul class="nav" style="padding-left: 400px">
+                        <!--                         <li>
+    <a>
+        <%- nav_errors%>
+    </a>
+</li> -->
+                        <% if (nav_success != "") { %>
+                            <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown">
+                                    <%- nav_success%>
+                                        <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="margin-left: 430px">
+                                    <li><a href="/loginout">登出</a></li>
+                                </ul>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container" class="container">
+        <%- body%>
+            <hr />
+            <footer>
+                <p style="text-align: center">
+                    <a href="#">Breaking Bad</a> 2017
+                </p>
+            </footer>
+    </div>
+</body>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+    $(".nav .navbar-nav li").on("click", function(e) {
+        $(".nav .navbar-nav li").removeClass("active");
+        $(this).addClass("active");
+    });
+});
+</script>
+
+</html>

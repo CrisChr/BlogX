@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users Sign up</title>
+</head>
+
+<body>
+    <% if (errors != "") {%>
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                &times;
+            </button>
+            <%- errors%>
+        </div>
+        <% } %>
+            <div id="notice"></div>
+            <form class="form-horizontal" method="post">
+                <fieldset>
+                    <legend>用户注册</legend>
+                    <div class="control-group">
+                        <label class="control-label" for="username">用户名</label>
+                        <div class="controls">
+                            <input type="text" class="input-xlarge" id="username" name="username">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password">密码</label>
+                        <div class="controls">
+                            <input type="password" class="input-xlarge" id="password" name="password">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password-repeat">确认密码</label>
+                        <div class="controls">
+                            <input type="password" class="input-xlarge" id="password_repeat" name="repassword">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button id="sub_btn" type="submit" class="btn btn-primary">注册</button>
+                    </div>
+                </fieldset>
+            </form>
+            <script src="/javascripts/jquery-3.2.1.min.js"></script>
+            <script>
+            $(document).ready(function() {
+                $('button#sub_btn').on('click', function() {
+                    var userName = $('#username').val();
+                    var passWord = $('#password').val();
+                    var passWordRep = $('#password_repeat').val();
+                    if (userName == "" || passWord == "" || passWordRep == "") {
+                        $('#notice').addClass('alert alert-danger');
+                        $('#notice').html("请输入你的用户名和密码");
+                        return false;
+                    } else if (!(userName.length > 1 && userName.length <= 10)) {
+                        $('#notice').addClass('alert alert-danger');
+                        $('#notice').html("用户名必须1到10个字符之间");
+                        return false;
+                    } else if (passWord.length < 6) {
+                        $('#notice').addClass('alert alert-danger');
+                        $('#notice').html("密码必须大于6位数");
+                        return false;
+                    } else if (passWord !== passWordRep) {
+                        $('#notice').addClass('alert alert-danger');
+                        $('#notice').html("两次输入的密码不一致，请重新输入");
+                        return false;
+                    } else {
+                        $('#notice').removeClass('alert alert-danger');
+                        $('#notice').hide();
+                        $.ajax({
+                            url: '/reg',
+                            type: 'post',
+                            data: {
+                                username: userName,
+                                password: passWord
+                            },
+                            cache: false
+                        });
+                    }
+
+                });
+            });
+            </script>
+</body>
+
+</html>

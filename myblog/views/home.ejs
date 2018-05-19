@@ -1,0 +1,81 @@
+<style type="text/css">
+.span4 {
+    text-align: center;
+}
+.span4 ul li{
+    list-style-type: none;
+}
+</style>
+<script>
+    $(document).ready(function() {
+     $("#view").removeClass("active");
+     $('#home').addClass("active");
+     $('#write').removeClass("active");
+ });
+</script>
+ <% if (success != "") {%>
+  <div class="alert alert-success alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">
+            &times;
+    </button>
+    <%- success%>
+  </div>
+<% } %>
+<div class="hero-unit">
+    <p>
+        <a id="loginBtn" class="btn btn-primary btn-large" href="user/login">登录</a>
+        <a id="signUpBtn" class="btn btn-large" href="user/reg">注册</a>
+    </p>
+</div>
+<div class="row">
+    <div class="span4" id="introduction">
+        <h2>介绍</h2>
+        <p>
+            这是一个基于Node和Express的微型博客系统
+        </p>
+    </div>
+    <div class="span4" id="technology">
+        <h2>技术实现</h2>
+        <p>
+            <ul>
+                <li>NodeJS 6.11.2</li>
+                <li>Express 4.15.4</li>
+                <li>MongoDB 3.4.9</li>
+                <li>Bootstrap 2.3.2</li>
+            </ul>
+        </p>
+    </div>
+    <div class="span4" id="tutorials">
+        <h2>相关参考</h2>
+        <p>
+            <ul>
+                <li>NodeJS开发指南</li>
+                <li>Node与Express开发</li>
+            </ul>
+            
+        </p>
+    </div>
+</div>
+
+<script>
+
+$(document).ready(function() {
+    //确保每个动画只执行一次
+    function AnimateCss(element, animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        $(element).addClass('animated ' + animationName).one(animationEnd, function() {
+            $(element).removeClass('animated ' + animationName);
+        });
+    }
+
+    AnimateCss('#introduction', 'fadeInDown');
+    AnimateCss('#technology', 'flipInX');
+    AnimateCss('#tutorials', 'fadeInUp');
+
+    AnimateCss('#intro_title', 'slideInDown');
+    AnimateCss('#loginBtn', 'slideInLeft');
+    AnimateCss('#signUpBtn', 'slideInRight');
+});
+
+</script>

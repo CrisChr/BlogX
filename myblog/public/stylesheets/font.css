@@ -1,0 +1,38 @@
+h4 {
+    font-family: Zilla Slab;
+    font-style: italic;
+    font-weight: 700;
+}
+
+.span4 h2 {
+    font-family: Zilla Slab;
+    font-style: normal;
+}
+
+.span4 p {
+    font-family: "Zilla Slab";
+    font-style: normal;
+    font-weight: 400;
+}
+
+a {
+    font-family: "Open Sans";
+    font-style: normal;
+}
+
+button {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 400;
+}
+
+form label {
+    font-family: Zilla Slab;
+    font-style: normal;
+}
+
+form legend {
+    font-family: Zilla Slab;
+    font-style: normal;
+    font-weight: 700;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+    .blog-post-meta {
+        color: #999;
+    }
+
+    #view_count {
+        margin-left: 680px;
+    }
+    </style>
+</head>
+<script>
+$(document).ready(function() {
+    $("#view").addClass("active");
+    $('#home').removeClass("active");
+    $('#write').removeClass("active");
+});
+</script>
+
+<body>
+    <div class="container">
+        <% if (success != "") {%>
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                <%- success%>
+            </div>
+            <% } %>
+                <div class="row" style="margin-left: 60px">
+                    <div class="col-sm-8 blog-main">
+                        <% posts.forEach(function(post){ %>
+                            <div class="blog-post">
+                                <h2 class="blog-post-title"><%= post.title%></h2>
+                                <div>
+                                    <p class="blog-post-meta" style="width: 400px;float: left">
+                                        <%= post.created_at%>
+                                            <!--create_at是在mongo.js里自定义的插件-->
+                                    </p>
+                                    <p id="view_count" style="width: 100px">浏览:
+                                        <%= post.pv%>
+                                    </p>
+                                </div>
+                                <!-- <p>
+							<%= post.content%>
+						</p> -->
+                                <p><a href='/viewdetails?blog_id=<%= post._id%>'>详细内容...</a></p>
+                            </div>
+                            <br/>
+                            <% }) %>
+                    </div>
+                </div>
+                <ul class="pager">
+                    <% if(!isFirstPage) { %>
+                        <li class="previous"><a href="/view?p=<%= page-1 %>">&larr; 最近...</a></li>
+                        <% } %>
+                            <% if(!isLastPage) { %>
+                                <li class="next"><a href="/view?p=<%= page+1 %>">较早... &rarr;</a></li>
+                                <% } %>
+                </ul>
+    </div>
+</body>
+
+</html>

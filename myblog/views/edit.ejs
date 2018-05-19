@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+<script>
+$(document).ready(function() {
+    $("#view").removeClass("active");
+    $('#home').removeClass("active");
+    $('#write').addClass("active");
+});
+</script>
+
+<body>
+    <div class="container">
+        <% if (errors != "") {%>
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                <%- errors%>
+            </div>
+            <% } %>
+                <div id="notice"></div>
+                <form class="form-horizontal" method="post">
+                    <fieldset>
+                        <legend>编辑这篇博客</legend>
+                        <div class="control-group">
+                            <label class="control-label" for="title">标题: </label>
+                            <div class="controls">
+                                <input type="text" class="input-xlarge" id="title" name="title" value="<%= post.title%>">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="content">内容: </label>
+                            <div class="controls">
+                                <textarea class="form-control" rows="6" id="content" name="content" style="resize: none; width: 600px;">
+                                    <%= post.content%>
+                                </textarea>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <button id="sub_btn" class="btn btn-success" type="submit">发表此博客！</button>
+                        </div>
+                    </fieldset>
+                </form>
+                <script>
+                $(document).ready(function() {
+                    $('#sub_btn').on('click', function(e) {
+                        var title = $('#title').val();
+                        var content = $('#content').val();
+                        if (title == "" || content == "") {
+                            $('#notice').addClass('alert alert-danger');
+                            $('#notice').html("请输入标题和内容");
+                            return false;
+                        } else {
+                            $('#notice').removeClass('alert alert-danger');
+                            $('#notice').hide();
+                            $.ajax({
+                                url: '/',
+                                type: 'post',
+                                data: {
+                                    title: title,
+                                    content: content
+                                },
+                                cache: false
+                            });
+                        }
+                    });
+                });
+                </script>
+</body>
+
+</html>
